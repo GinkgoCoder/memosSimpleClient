@@ -22,6 +22,7 @@ const vditorRef = ref(null)
 const vditor = ref(null)
 
 onMounted(() => {
+
 	vditor.value = new Vditor(vditorRef.value, {
 		height: '100%',
 		mode: 'ir',
@@ -33,16 +34,25 @@ onMounted(() => {
 			enable: false
 		},
 		tab: '    ',
+		after: () => {
+			vditor.value.focus()
+		}
 	})
 
 	ipcRenderer.on('save-content', () => {
-		const content = vditor.value.getValue()
-		console.dir(content)
+		let content = vditor.value.getValue()
 		ipcRenderer.send('save-and-quit', content)
 	})
 
 	ipcRenderer.on('load-content', (event, content) => {
 		vditor.value.setValue(content)
+	})
+	
+
+	ipcRenderer.on('theme', (event, theme) => {
+		console.log('Setting theme:', theme);
+		vditor.value.setTheme(theme, theme, theme)
+	// You could then store this in a Vuex store or local variable
 	})
 })
 
@@ -57,7 +67,7 @@ onBeforeUnmount(() => {
 .editor-wrapper {
 	height: calc(100vh - 16px);
 	width: 100%;
-	padding: 8px;
+	padding: 0px;
 	box-sizing: border-box;
 }
 
