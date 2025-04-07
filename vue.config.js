@@ -2,10 +2,10 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       nodeIntegration: true,
-      productName: 'Memo Simple Client',
+      productName: 'MDEditorLite',
       externals: ['electron'],
       builderOptions: {
-        productName: 'Memo Simple Client',  // 添加这行
+        productName: 'MDEditorLite',
         icon: "src/assets/logo.ico",
         mac: {
           icon: "src/assets/logo.png"
